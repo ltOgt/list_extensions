@@ -85,6 +85,25 @@ extension ListExtensions<E> on Iterable<E> {
     }
     return r;
   }
+  
+  /// But the [insertable] inbetween the elements of [original].
+  ///
+  /// [beforeFirst] => put [insertable] at the beggining as well
+  /// [afterLast] => put [insertable] at the end as well
+  List<E> intertwineWith(E insertable, {bool beforeFirst = false, bool afterLast = false}) {
+    List<E> r = [];
+    if (beforeFirst) {
+      r.add(insertable);
+    }
+    for (E e in this) {
+      r.add(e);
+      r.add(insertable);
+    }
+    if (!afterLast) {
+      r.removeLast();
+    }
+    return r;
+  }
 }
 
 enum IntertwineMode {
@@ -92,3 +111,4 @@ enum IntertwineMode {
   AFTER,
   SURROUND,
 }
+
